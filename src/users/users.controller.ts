@@ -9,10 +9,13 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { USerDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 
+@Serialize(USerDto)
 @Controller('auth')
 export class UsersController {
   constructor(private userService: UsersService) {}
@@ -24,12 +27,12 @@ export class UsersController {
 
   @Get(':id')
   async getUser(@Param('id') id: string) {
-    const user= await this.userService.findOne(parseInt(id));
-    if(!user){
-        throw new NotFoundException('User not found');
+    const user = await this.userService.findOne(parseInt(id));
+    if (!user) {
+      throw new NotFoundException('User not found');
     }
     return user;
-  } 
+  }
 
   @Get()
   getAllUsers(@Query('email') email: string) {
