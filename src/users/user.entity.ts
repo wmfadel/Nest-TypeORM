@@ -7,8 +7,10 @@ import {
   AfterRemove,
 } from 'typeorm';
 
+// enity class representing a user
 @Entity()
 export class User {
+  // primary key
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
@@ -16,6 +18,7 @@ export class User {
   @Column()
   password: string;
 
+  // lifecycle hooks
   @AfterInsert()
   logInsert() {
     console.log('user created with id', this.id);
