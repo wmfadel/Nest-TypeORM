@@ -7,7 +7,7 @@ import {
 import { plainToClass } from 'class-transformer';
 import { map, Observable } from 'rxjs';
 
-// interface that matches with any class
+// interface that matches any class
 interface ClassConstructor {
   new (...args: any[]): {};
 }
