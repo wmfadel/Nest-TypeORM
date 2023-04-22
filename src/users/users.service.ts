@@ -15,10 +15,14 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    if (!id) {
+      return null;
+    }
     return this.repo.findOneBy({ id });
   }
 
   find(email: string) {
+    console.log('checking is user ', email, ' exists');
     return this.repo.find({ where: { email } });
   }
 
