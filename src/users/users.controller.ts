@@ -17,6 +17,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import { CurrentUser } from './decorators/current_user.decorator';
 
 @Serialize(UserDto)
 @Controller('auth')
@@ -42,8 +43,8 @@ export class UsersController {
   }
 
   @Get('whoAmI')
-  whoAmI(@Session() session: any) {
-    return this.userService.findOne(session.userId);
+  whoAmI(@CurrentUser() user: User) {
+    return user;
   }
 
   @Post('signout')
