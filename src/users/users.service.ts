@@ -22,7 +22,6 @@ export class UsersService {
   }
 
   find(email: string) {
-    console.log('checking is user ', email, ' exists');
     return this.repo.find({ where: { email } });
   }
 

@@ -16,12 +16,10 @@ export class CurrentUserInterceptor implements NestInterceptor {
   ): Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
     const { userId } = request.session || {};
-    console.log('session user ', userId);
     if (userId) {
       const user = await this.useerService.findOne(userId);
       if (user) {
         request.currentUser = user;
-        console.log('added user ', request.currentUser);
       }
     }
     return next.handle();
