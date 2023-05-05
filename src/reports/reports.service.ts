@@ -10,6 +10,9 @@ export class ReportsService {
   constructor(@InjectRepository(Report) private repo: Repository<Report>) {}
 
   async create(reportDto: CreateReportDto, user: User) {
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
     const report = this.repo.create(reportDto);
     report.user = user;
     this.repo.save(report);
@@ -18,7 +21,7 @@ export class ReportsService {
 
   async changeApproval(id: string, approved: boolean) {
     const report = await this.repo.findOne({ where: { id: parseInt(id) } });
-    if(!report) {
+    if (!report) {
       throw new NotFoundException('report not found');
     }
     report.approved = approved;

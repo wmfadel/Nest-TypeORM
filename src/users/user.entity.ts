@@ -1,3 +1,4 @@
+import { IsBoolean } from 'class-validator';
 import { Report } from 'src/reports/report.entity';
 import {
   Entity,
@@ -21,6 +22,8 @@ export class User {
   password: string;
   @OneToMany(() => Report, (report) => report.user)
   reports: Report[];
+  @Column({ default: true })
+  admin: boolean;
 
   // lifecycle hooks
   @AfterInsert()
